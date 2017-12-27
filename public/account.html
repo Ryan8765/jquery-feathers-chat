@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/master.css">
+  </head>
+  <body>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <h3>Create New Account</h3>
+            <br>
+
+            <form id="newUser" class="" action="index.html" method="post">
+              <label for="">Email</label>
+              <input id="email" class ="form-control" type="email" name="email" value="" required>
+              <label for="">Password</label>
+              <input id="password" class ="form-control" type="password" name="password" value="" required>
+              <br>
+              <input class ="btn btn-primary" type="submit" name="" value="Submit">
+            </form>
+            <br>
+            <div id="error-message" class="alert alert-danger" role="alert">There was an error</div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+    <script src="//unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
+    <script src="//unpkg.com/socket.io-client@1.7.3/dist/socket.io.js"></script>
+    <script type="text/javascript" src="./js/account.js">
+    </script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </body>
+</html>

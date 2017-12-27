@@ -1,0 +1,7 @@
+.chat-message {
+  border: 1px solid black;
+}
+
+#error-message {
+    display: none;
+}
