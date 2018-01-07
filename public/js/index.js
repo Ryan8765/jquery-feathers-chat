@@ -14,17 +14,76 @@ $(document).ready(function() {
     }));
     var messagesService = client.service('/messages');
 
-    socket.emit('test', {
-        data: "test data"
-    });
+    /**
+     * Async function to create a new message
+     */
+    // var createMessage = async ()=> {
+    //   await messagesService.create({
+    //       text: 'hello boy2'
+    //   });
+    // };
 
-    client.authenticate().then((response)=>{
-        messagesService.create({
-            text: 'hello boy'
-        });
-    }).catch((err)=>{
-        alert('error');
-    });
+
+
+    class Message {
+
+      constructor( msgText ) {
+          this.msgText = msgText
+      }
+
+      getMessageHtmlString() {
+          var msgHTMLString = `
+            <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                      <img alt="64x64" class="media-object" src="http://icons.iconarchive.com/icons/mahm0udwally/all-flat/256/User-icon.png" style="width: 64px; height: 64px;">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <div class="pull-right">
+                      <span class="delete-comment"><i class="fa fa-times" aria-hidden="true"></i></span>
+                  </div>
+                  <h4 class="media-heading">Media heading</h4>
+                  <span class="comment-date">03-04-2016 10:43am</span>
+                  <br>
+                  <br>
+                  ${this.msgText}
+                </div>
+            </div>
+          `;
+
+          return msgHTMLString;
+      }
+
+  }//end class
+
+  /**
+   * Authenticate user and create a new message
+   */
+  client.authenticate().then((response)=>{
+      createMessage();
+      console.log("went ahead and created a message");
+
+      $('#submit-message-form').submit(function(e){
+          e.preventDefault();
+
+          var $msgText = $('#msg-text');
+          var message = $msgText.val();
+          $msgText.val('');
+          if( message.trim().length ) {
+              messagesService.create({
+                  text: message
+              });
+          }
+      });
+
+
+  }).catch((err)=>{
+      window.location.href = `${serverurl}/login.html`
+  });
+
+  var oneMessage = new Message( 'Hello how are you' );
+  console.log(oneMessage.getMessageHtmlString());
 
 
 
