@@ -44,8 +44,6 @@ $(document).ready(function() {
             }).catch((err)=>{
                 $('#error-message').text('There was an error processing your request.  Please try a different email.').show();
             });
-
-
     });
 
 });

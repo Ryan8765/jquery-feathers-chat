@@ -1,6 +1,8 @@
 $(document).ready(function() {
+
+    var serverurl = 'http://localhost:3030';
     // Establish a Socket.io connection
-    var socket = io('http://localhost:3030');
+    var socket = io( serverurl );
     // Initialize our Feathers client application through Socket.io
     // with hooks and authentication.
     var client = feathers();
@@ -10,62 +12,61 @@ $(document).ready(function() {
     client.configure(feathers.authentication({
         storage: window.localStorage
     }));
+    var messagesService = client.service('/messages');
 
-    //obtain the users service
-    // var usersService = client.service('/users');
-    // var messagesService = client.service('/messages');
-    // messagesService.create({ text: 'hello' }) // create message
-    //   .catch(err => console.log('ERROR creating message:', err));
-    var chatService = client.service('/chat');
-    await chatService.create({ text: 'hello' }); // create message
+    socket.emit('test', {
+        data: "test data"
+    });
 
-    // console.log(usersService);
-
-    /*
-        Get User Credentials
-     */
-    function getCredentials() {
-        var user = {
-            email: $('#email').value,
-            password: $('#password').value
-        }
-
-        return user;
-    }
-
-
-    $("#newUser").submit(function(e) {
-        e.preventDefault();
-
-        var userCredentials = getCredentials();
-
-        usersService.create({
-            email: 'rmhaas221111@gmail.com',
-            password: 'test'
+    client.authenticate().then((response)=>{
+        messagesService.create({
+            text: 'hello boy'
         });
-        // var data = {
-        //     email: "",
-        //     password: ""
-        // };
-        // var formData = $(this).serializeArray();
-        // data.email = formData[0].value;
-        // data.password = formData[1].value;
-        // data = JSON.stringify(data);
-        // console.log(data);
-        // $.ajax({
-        //         method: 'POST',
-        //         url: 'http://localhost:3030/users',
-        //         dataType: 'json',
-        //         contentType: 'application/json',
-        //         data: data,
-        //         success: function(response) {
-        //             console.log(response);
-        //         },
-        //         error: function(xhr, ajaxOptions, thrownError) {
-        //             console.log(xhr.responseJSON.message);
-        //         }
-        //     })
+    }).catch((err)=>{
+        alert('error');
+    });
+
+
+
+
+    // client.authenticate({
+    //   strategy: 'local',
+    //   email: 'justin@test.com',
+    //   password: 'test'
+    // }).then(response => {
+    //
+    // });
+
+
+
+
+
+
+    // function checkUserAuthentication( client ) {
+    //
+    //     client.passport.getJWT()
+    //         .then((token)=>{
+    //             var validUser = client.passport.payloadIsValid(token);
+    //             if( !validUser ) {
+    //                 window.location.href = `${serverurl}/login.html`;
+    //             }
+    //         }).catch((err)=>{
+    //             alert(err);
+    //         });
+    // }
+
+    $('#logout-icon').on('click', function(){
+
+        client.logout();
+        window.location.href = `${serverurl}/login.html`;
 
     });
+
+
+
+    /*
+        Functions to run on page load
+     */
+    // checkUserAuthentication( client );
 
 });
